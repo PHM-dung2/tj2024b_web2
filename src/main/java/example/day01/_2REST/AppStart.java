@@ -2,8 +2,9 @@ package example.day01._2REST;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootConfiguration
+@SpringBootApplication
 // 주요 기능 및 어노테이션
 // 1. @SpringBootConfiguration :
 // @Configuration 어노테이션 포함하며, Spring 컨테이너(메모리)에 bean(객체) 설정을 등록할 수 있도록 도와주는 어노테이션
