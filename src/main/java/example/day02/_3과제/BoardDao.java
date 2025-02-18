@@ -1,6 +1,7 @@
 package example.day02._3과제;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // @Component
-@Service
+@Component
 public class BoardDao {
 
     private final List<BoardDto> BoardList = new ArrayList<>();

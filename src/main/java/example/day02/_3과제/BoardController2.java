@@ -10,6 +10,7 @@ import java.util.List;
 @RequestMapping("/day02/task2/board")
 public class BoardController2 {
 
+    // @Autowired BoardDao boardDao; 한줄로 요약 가능하지만 권장은 생성자에 주입
     private final BoardDao boardDao;
 
     @Autowired
