@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.util.ArrayList;
 import java.util.List;
 
+// @Component
 @Service
 public class BoardDao {
 
@@ -16,7 +17,7 @@ public class BoardDao {
 
     // 1. 글쓰기
     public Boolean write( BoardDto boardDto ){
-        System.out.println("BoardDao.wrtie");
+        System.out.println("BoardDao.write");
         boardDto.setBno( bno++ );
         BoardList.add( boardDto );
         System.out.println("boardDto = " + boardDto);
