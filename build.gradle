@@ -32,7 +32,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     // [3] JDBC 라이브러리
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    runtimeOnly 'com.mysql:mysql-connector-j'
     // [4] 마이바티스 라이브러리
     implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.4'
 }

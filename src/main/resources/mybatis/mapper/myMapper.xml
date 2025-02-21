@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatstis.org/Dto Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace = "example.day03.mvc2_mybatis.model.mapper.MyMapper">
+    <!-- XML 주석은 HTML과 동일하다. .xml은 마크업 언어 -->
+    <!-- 반환값은 int가 기본 -->
+    <!-- [1] insert -> <insert> 마크업 -->
+    <insert id="save" parameterType="example.day03.mvc2_mybatis.model.dto.MyDto" >
+        insert into user( name , age ) values( #{ name } , #{ age } )
+    </insert>
+
+    <!-- select -->
+    <select id="findAll" resultType="example.day03.mvc2_mybatis.model.dto.MyDto" >
+        select * from user
+    </select>
+
+    <!-- select -->
+    <select id="find" parameterType="int"
+            resultType="example.day03.mvc2_mybatis.model.dto.MyDto" >
+        select * from user where id = #{ id }
+    </select>
+
+    <!-- update -->
+    <update id="update" parameterType="example.day03.mvc2_mybatis.model.dto.MyDto" >
+        update user set name = #{ name }, age = #{ age } where id = #{ id }
+    </update>
+    <!-- delete -->
+
+    <delete id="delete" parameterType="example.day03.mvc2_mybatis.model.dto.MyDto" >
+        delete from user where id = #{ id }
+    </delete>
+
+</mapper>
