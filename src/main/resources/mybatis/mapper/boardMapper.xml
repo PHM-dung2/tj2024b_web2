@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatstis.org/Dto Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace = "example.day03._4과제.model.mapper.BoardMapper">
+
+<insert id="write" parameterType="example.day03._4과제.model.dto.BoardDto" >
+    insert into board( title , content ) values( #{ title } , #{ content } )
+</insert>
+
+<!-- select -->
+<select id="findAll" resultType="example.day03._4과제.model.dto.BoardDto" >
+    select * from board
+</select>
+
+<!-- select -->
+<select id="find" parameterType="int"
+        resultType="example.day03._4과제.model.dto.BoardDto" >
+    select * from board where bno = #{ bno }
+</select>
+
+<!-- update -->
+<update id="update" parameterType="example.day03._4과제.model.dto.BoardDto" >
+    update board set title = #{ title }, content = #{ content } where bno = #{ bno }
+</update>
+
+<!-- delete -->
+<delete id="delete" parameterType="int" >
+    delete from board where bno = #{ bno }
+</delete>
+
+</mapper>
