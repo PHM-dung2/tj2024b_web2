@@ -46,7 +46,7 @@ const onFind = async ( ) => {
     btnbox.innerHTML = html;
 
 } // f end
-onFind( );
+onFind();
 
 // 4. 개별 글 수정
 const onUpdate = async ( bno ) => {
@@ -55,7 +55,7 @@ const onUpdate = async ( bno ) => {
     obj = { title, content };
 
     const response = await axios.put( `/day04/task/board?bno=${ bno }` , obj )
-    if( response.data ){ alert('글수정 성공'); onFindAll(); updateCancle( bno ); }
+    if( response.data ){ alert('글수정 성공'); onFindAll(); onFind(); }
     else{ alert('글수정 실패'); }
 }
 
