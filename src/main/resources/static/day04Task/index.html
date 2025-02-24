@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+<h3> 게시물 등록 </h3>
+제목 : <input type="text" class="title" /> <br/>
+내용 : <input type="text" class="content" /> <br/>
+<button type="button" onclick="onWrite()" > 등록 </button>
+
+<hr/>
+<h3> 개별조회 </h3>
+<table border="1">
+  <thead>
+    <tr>
+      <th> 번호 </th>
+      <th> 제목 </th>
+      <th> 내용 </th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+  </tbody>
+</table>
+
+<hr/>
+<h3> 상세조회 </h3>
+제목 : <span class="titlediv"></span> <br/>
+내용 : <span class="contentdiv"></span>
+<div class="btnbox">
+
+</div>
+
+<!-- axios js : 본인 js보다 위 -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>
