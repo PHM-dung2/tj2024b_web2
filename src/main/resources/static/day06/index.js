@@ -128,7 +128,7 @@ const array10 = arr9.map( (value, index) => { console.log( value, index ); retur
 console.log( array10 );
     // 5. filter : 조건에 맞는 것만 turn할 수 있따.
 const array11 = arr9.filter( (value, index) => ( value % 4  === 0 ) ) // 조건예) 4배수이면
-console.log( array11 )
+console.log( array11 );
 
 
 
