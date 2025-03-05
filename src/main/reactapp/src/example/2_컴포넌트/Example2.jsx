@@ -34,11 +34,11 @@ function SubComponent3( props ){
 } // f end
 */
     // (2) 구문 분해를 사용했을때
-function SubComponent3( { name, age } ){
+function SubComponent3( { name, age } ){ // props  대신에 { 속성명, 속성명 }
     return(<> <h3> { name } 님 { age } 살입니다. </h3> </>)
 } // f end
 
-// (4) 하위 컴포넌트 매개변수 기본값 지정
+// (4) 하위 컴포넌트 매개변수 기본값 지정 = 구문 분해
 function SubComponent4( { nation = "대한민국" } ){
     return(<> <h3> { nation } 국적입니다. </h3> </>)
 } // f end
