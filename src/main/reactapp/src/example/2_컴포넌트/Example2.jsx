@@ -4,7 +4,7 @@ export default function Example2( props ){
         {/* 하위컴포넌트 호출 + 매개변수 */}
         <SubComponent1 name="유재석" />
         <SubComponent1 name="강호동" age="10" />
-        <SubComponent2> 여d기가 props.children입니다. </SubComponent2>
+        <SubComponent2> 여기가 props.children입니다. </SubComponent2>
         <SubComponent2> <button> 부모가 전달한 마크업 </button> </SubComponent2>
         <SubComponent3 name="유재석" age="40" />
         <SubComponent3 name="강호동" age="50" />

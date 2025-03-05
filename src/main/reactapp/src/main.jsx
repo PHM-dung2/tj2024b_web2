@@ -29,4 +29,8 @@ import Example1 from './example/2_컴포넌트/Example1.jsx'
 
 // day02 : 컴포넌트의  props 활용
 import Example2 from './example/2_컴포넌트/Example2.jsx'
-root.render( <Example2 /> )
+// root.render( <Example2 /> )
+
+// day02 : task
+import Task from './example/2_컴포넌트/task.jsx'
+root.render( <Task /> )
