@@ -62,5 +62,17 @@ const root = createRoot( document.querySelector('#root') )
 
 // day04 : Example2
 // main.jsc 가장 위에 존재하는 import App 샘플 코드 주석처리
-import App from './example/5_ 라우터/Example1'
-root.render( <App /> )
+// import App from './example/5_ 라우터/Example1'
+// root.render( <App /> )
+
+// day05 : Example1
+// import Example1 from './example/6_AXIOS/Example1'
+// root.render( <Example1 /> )
+
+// day05 : Example2
+// import Example2 from './example/6_AXIOS/Example2'
+// root.render( <Example2 /> )
+
+// day05 : Task
+import Task1 from './example/6_AXIOS/Task'
+root.render( <Task1 /> )
