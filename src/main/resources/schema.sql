@@ -1,3 +1,17 @@
+-- ---------------------- day08 ---------------------------------- --
+-- 제품 테이블
+DROP TABLE if EXISTS productsample;
+
+create table productsample(
+	id int auto_increment,
+    name varchar(20),
+    price int,
+    comment longtext,
+    constraint primary key( id )
+);
+
+-- ---------------------- ------ ---------------------------------- --
+
 -- ---------------------- day05 ---------------------------------- --
 -- 학생 테이블
 DROP TABLE if EXISTS student_score;
@@ -22,3 +36,5 @@ CREATE TABLE student_score (
 );
 
 -- ---------------------- ------ ---------------------------------- --
+
+

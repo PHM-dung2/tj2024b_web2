@@ -74,5 +74,9 @@ const root = createRoot( document.querySelector('#root') )
 // root.render( <Example2 /> )
 
 // day05 : Task
-import Task1 from './example/6_AXIOS/Task'
-root.render( <Task1 /> )
+// import Task1 from './example/6_AXIOS/Task'
+// root.render( <Task1 /> )
+
+// day06 : App
+import App from './example/7_AXIOS2/App'
+root.render( <App /> )
