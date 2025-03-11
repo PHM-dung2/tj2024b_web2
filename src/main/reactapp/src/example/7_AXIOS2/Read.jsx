@@ -28,7 +28,7 @@ export default function Read( porps ){
 
     return(<>
         <div>
-            <h2> Read 페이지 </h2>
+            <h2> Read 페이지 </h2> <br/>
             <table border={1} > 
                 <thead>
                     <tr>
