@@ -1,11 +1,16 @@
 package web.service;
 
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.UUID;
 
 @Service // 해당 클래스가 서비스입을 빈 등록
@@ -38,18 +43,62 @@ public class FileService {
         String fileName = uuid + "_" + multipartFile.getOriginalFilename().replaceAll("_","-");
             // (*) 업로드 기본경로 + uuid 포함된 파일명
         String filePath = uploadPath + fileName;
+            // (*) 만일 업로드 경로가 존재하지 않는다면
+            File file2 = new File( uploadPath );
+            if( file2.exists() ){ file2.mkdir(); }
 
         // (4) File 클래스 : File 관련된 다양한 메소드 제공하는 클래스
         File file = new File( filePath ); // new File( 파일경로 );
 
-        // (5) 경로에 업로드하기, transferTo( file객체 )
+        // (5) 경로에 업로드하기, transferTo( file객체 ), 예외처리
         try{ multipartFile.transferTo( file );
         }catch ( IOException e){ System.out.println( e ); return null; } // 만일 업로드 실패시 null 반환
         return fileName; // 만일에 업로드 성공시 업로드한 파일명 반환
     } // f end
 
     // [2] 업로드된 파일 다운로드
+    public void fileDownload(String fileName, HttpServletResponse resp){ // (1) 삭제할 파일명을 매개변수로 받는다.
+        // (2) 다운로드할 파일의 경로 조합(기본경로 + 다운로드할 파일명)
+        String downlaodPath = uploadPath + fileName;
+        System.out.println("downlaodPath = " + downlaodPath);
+        // (3) 만일 다운로드할 파일이 존재하지 않으면 리턴
+        File file = new File( downlaodPath );
+        if( !file.exists() ){ return; } // 다운로드 취소/안함
+        // (4) 업로드된 파일을 자바(바이트)로 가져오기
+        try{
+            // 1. 파일 입력스트림 객체, new FileInputStream( 파일객체 ); , 예외처리
+            FileInputStream fin = new FileInputStream( downlaodPath );
+            // 2. 해당하는 파일의 용량만큼 배열 선언
+            long fileSize = file.length(); // 파일의 용량 (long) 반환
+            System.out.println("fileSize = " + fileSize);
+            byte[] bytes = new byte[ (int)fileSize ]; // 파일의 용량만큼 배열 선언, 배열은 int타입으로 길이 설정
+            // 3. 파일 입력스트림 객체로 파일 읽어오기, .read( 바이트배열 ), 읽어온 바이트들을 바이트배열에 대입
+            fin.read( bytes );
+            System.out.println(Arrays.toString( bytes )); // 확인용
+            // 4. 파일 입력스트림 닫기, .close()
+            fin.close();
+        // (5) 가져온 파일을 HTTP response 내보내기
+            // 1. 서블릿 출력스트림 객체 생성
+            ServletOutputStream fout = resp.getOutputStream();
+            // 2. 서블릿 출력스트림 객체 이용한 읽어온바이트 내보내기, .write( 출력할배열 )
+            fout.write( bytes );
+            // 3. 서블릿 출력스트림 닫기, .close()
+            fout.close();
+        }catch ( Exception e ) { System.out.println( e ); }
 
-     // [3] 업로드된 파일 삭제
+    } // f end
+
+
+    // [3] 업로드된 파일 삭제
+    // [GET] http://localhost:8080/api/file/delete?fileName=(삭제할파일명)defaylt.jpg
+    public boolean fildDelete( String fileName ){ // (1) 삭제할 파일명을 매개변수로 받는다.
+        String filePath = uploadPath + fileName; // (2) 업로드경로와 삭제할 파일명 연결한다.
+        File file = new File( filePath ); // (3) new File( 파일경로 );
+        if( file.exists() ) {  // (4) .exists() : 경로상의 파일이 존재하면 true 아니면  false 반환
+            file.delete(); // (5) .delete() : 경로상의 파일 삭제
+            return true; // 삭제 성공 반환
+        }
+        return false; // 삭제 실패 반환
+    }
 
 }
