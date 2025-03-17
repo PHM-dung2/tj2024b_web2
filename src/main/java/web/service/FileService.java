@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.UUID;
 
@@ -57,33 +58,46 @@ public class FileService {
     } // f end
 
     // [2] 업로드된 파일 다운로드
-    public void fileDownload(String fileName, HttpServletResponse resp){ // (1) 삭제할 파일명을 매개변수로 받는다.
+    // [사용자] -- HTTP(response) --> [서버] -- FileInputStream --> C:~~ build
+    // [사용자] <-- HTTP(response) -- [서버] <-- FileInputStream -- C:~~ build
+    // * HTTP : 문자(JSON) 전송, 대용량 파일(첨부파일)은 바이트(바이너리)로 전송
+    public void fileDownload(String fileName, HttpServletResponse resp){
+        // (1) 삭제할 파일명을 매개변수로 받는다.
+
         // (2) 다운로드할 파일의 경로 조합(기본경로 + 다운로드할 파일명)
         String downlaodPath = uploadPath + fileName;
         System.out.println("downlaodPath = " + downlaodPath);
-        // (3) 만일 다운로드할 파일이 존재하지 않으면 리턴
+        // (3) 만일 다운로드할 파일이 존재하지 않으면 리턴, new File( 파일경로 );, 다양항 파일 함수 제공
         File file = new File( downlaodPath );
         if( !file.exists() ){ return; } // 다운로드 취소/안함
         // (4) 업로드된 파일을 자바(바이트)로 가져오기
+        // * 스트림 : 바이트(데이터)가 다니는 통로, 대용량(첨부파일)에서는 무조건 바이트 전송해야한다.
         try{
             // 1. 파일 입력스트림 객체, new FileInputStream( 파일객체 ); , 예외처리
             FileInputStream fin = new FileInputStream( downlaodPath );
             // 2. 해당하는 파일의 용량만큼 배열 선언
-            long fileSize = file.length(); // 파일의 용량 (long) 반환
-            System.out.println("fileSize = " + fileSize);
+            long fileSize = file.length(); // .length() : 파일의 용량 (long) 반환
+            System.out.println("fileSize = " + fileSize); // 37418바이트
             byte[] bytes = new byte[ (int)fileSize ]; // 파일의 용량만큼 배열 선언, 배열은 int타입으로 길이 설정
-            // 3. 파일 입력스트림 객체로 파일 읽어오기, .read( 바이트배열 ), 읽어온 바이트들을 바이트배열에 대입
+            // 3. 파일 입력스트림 객체로 파일 읽어오기, .read(바이트배열), 읽어온 바이트들을 바이트배열에 대입
             fin.read( bytes );
             System.out.println(Arrays.toString( bytes )); // 확인용
-            // 4. 파일 입력스트림 닫기, .close()
-            fin.close();
-        // (5) 가져온 파일을 HTTP response 내보내기
-            // 1. 서블릿 출력스트림 객체 생성
+            // 4. 파일 입력스트림 닫기, .close(), 권장 : 스트림에서 이동한 바이트들이 사용한 메모리들을 초기화하면 안전하다.
+            fin.close(); // 입력스트림의 메모리를 직접 닫아준다. 생략시 일정시간이후 GC 삭제한다.
+        // (5) 가져온 바이트배열(파일)을  HTTP response 이용하여 요청한 사용자로부터 (바이트) 응답하기
+            // * HTTP 응답 객체의 헤더 속성 추가, 브라우저에게 다운로드 형식임을 알리자!, 다운로듭 받는 프론트엔드는 브라우저가 제공한다.
+                // resp.setHeader( "Content-Disposition", "attachment; filename=다운로드에표시할파일명" );
+            // * 파일명에 한글이 존재하면 깨진다. HTTP는 본래 한글을 진원안한다.(인코딩필요)
+                // URLEncoder.encode( 한글파일명, "UTF-8" ) // 한글파일명을 인코딩해준다.
+            String oldFilename = URLEncoder.encode( fileName.split("_")[1], "UTF-8" ); // UUID(사용자에게 보여줄 필요 없음)는 제거한다.
+            resp.setHeader( "Content-Disposition", "attachment; filename="+oldFilename );
+
+            // 1. 서블릿 출력스트림 객체 생성, resp.getOutputStream() : response 객체에서 (바이트)출력스트림 변환
             ServletOutputStream fout = resp.getOutputStream();
             // 2. 서블릿 출력스트림 객체 이용한 읽어온바이트 내보내기, .write( 출력할배열 )
             fout.write( bytes );
-            // 3. 서블릿 출력스트림 닫기, .close()
-            fout.close();
+            // 3. 서블릿 출력스트림 닫기, .close(), 권장 : 스트림에서 이동한 바이트들이 사용한 메뫼리들을 초기화하면 안전하다.
+            fout.close(); // 출력스트림의 메모리를 직접 닫아준다. 생략시 일정 시간 이후 GC 삭제한다.(누수)
         }catch ( Exception e ) { System.out.println( e ); }
 
     } // f end
