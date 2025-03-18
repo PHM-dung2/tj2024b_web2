@@ -1,7 +1,15 @@
-import { StrictMode } from 'react'
+import { StrictMode } from 'react' // 예외처리 해주는 모드 // 렌더링 2번씩 된다. * 선택적 사용
 import { createRoot } from 'react-dom/client'
 // import './index.css'
 // import App from './App.jsx'
+
+// (*) index.html에 root DOM 구역 가져오기
+const root = createRoot( document.querySelector('#root') )
+// (*) 최초로 보여줄 컴포넌트 가져오기
+
+// day08 : Web
+import App from './components/App'
+root.render( <App /> );
 
 // react18
 // (!) 기본값 주석처리
@@ -11,8 +19,6 @@ import { createRoot } from 'react-dom/client'
 //   </StrictMode>,
 // )
 
-// (*) index.html에 root 구역 가져오기
-const root = createRoot( document.querySelector('#root') )
 
 // day01 : '컴포넌트 만들기' 렌더링
   // import 호출할컴포넌트명 form '경로/파일명(확장자);
@@ -85,6 +91,6 @@ const root = createRoot( document.querySelector('#root') )
 // import Example1 from './example/8_MUI/Example1'
 // root.render( <Example1 /> )
 
-// dyq07 : Example2
-import Example2 from './example/8_MUI/Example2'
-root.render( <Example2 /> )
+// day07 : Example2
+// import Example2 from './example/8_MUI/Example2'
+// root.render( <Example2 /> )
