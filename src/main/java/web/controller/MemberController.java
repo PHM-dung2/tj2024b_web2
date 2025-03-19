@@ -56,8 +56,8 @@ public class MemberController {
         MemberDto result = memberService.login(memberDto);
         if( result == null ){ return false; } // 서비스 결과가 null이면 로그인 실패
         else{ // 서비스 결과가 null이 아니면 로그인 성공 => 세션에 로그인 성공한 dto를 저장
-            HttpSession session = req.getSession(); // 세션 호출
-            req.setAttribute("loginDto", result); // 세션 객체 내 새로운 속성 추가, 로그인 성공한 결과를 'loginDto' 라는 이름으로 저장
+            HttpSession session = req.getSession(); // 세션 호출\
+            session.setAttribute("loginDto", result); // 세션 객체 내 새로운 속성 추가, 로그인 성공한 결과를 'loginDto' 라는 이름으로 저장
             session.setMaxInactiveInterval( 60 * 10 ); // 세션 유지 시간[초] : 60 * 10 => 10분
             return true; // 로그인 성공처리
         }
@@ -65,6 +65,7 @@ public class MemberController {
 
     // [3] 로그아웃 + 세션 삭제
     // [GET] http://localhost:8080/api/member/logout
+    @GetMapping("/logout")
     public boolean logout( HttpServletRequest req ) {
         HttpSession session = req.getSession(); // 1. 세션 호출
         if( session == null ){ return false; }

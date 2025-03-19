@@ -32,7 +32,6 @@ public class FileController {
         fileService.fileDownload(fileName, resp);
     } // f end
 
-
     // [3] 업로드된 파일 삭제
     // [GET] http://localhost:8080/api/file/delete?fileName=[삭제할파일명]
     @GetMapping("/delete")
