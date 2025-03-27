@@ -10,6 +10,13 @@ CREATE TABLE member (
     CONSTRAINT PRIMARY KEY(mno)
 );
 
+-- ---------------------- day13 ---------------------------------- --
+DROP TABLE if EXISTS day13users;
+CREATE TABLE day13users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
 -- ---------------------- day08 ---------------------------------- --
 -- 제품 테이블
 DROP TABLE if EXISTS productsample;
