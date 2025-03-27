@@ -7,6 +7,11 @@ INSERT INTO member (mid, mpwd, mname) VALUES
 ('user5', 'son1234', '손흥민'),
 ('qwe123', '1234', '유재석');
 
+-- ---------------------- day13 ---------------------------------- --
+INSERT INTO day13users (name, money) VALUES
+('서장훈', 500000),
+('신동엽', 300000);
+
 -- ---------------------- day08 ---------------------------------- --
 -- 상품 테이블 샘플 데이터 삽입
 insert into productsample( name , price , comment ) values ( '코카콜라' , 1000 , '맛있는 코카콜라' );
